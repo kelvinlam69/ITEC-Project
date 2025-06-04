@@ -55,7 +55,7 @@ st.markdown("""
 """)
 
 # --- Full Historical + Forecast + Expected Revenue Visualization ---
-st.header("📊 Historical Revenue, Forecast, and Expected Values")
+st.header("Historical Revenue, Forecast, and Expected Values")
 
 # Prepare full ARIMAX forecast visualization
 df = pd.read_csv("starbucks_financials_expanded.csv", parse_dates=['date'])
@@ -103,7 +103,7 @@ df.update(cpi_live, overwrite=False)
 forecast, conf = forecast_revenue(df)
 
 # --- User Input ---
-st.header("🔢 Enter Expected Revenue (Next 4 Quarters)")
+st.header("Enter Expected Revenue (Next 4 Quarters)")
 expected = []
 cols = st.columns(4)
 for i in range(4):
@@ -112,7 +112,7 @@ for i in range(4):
         expected.append(val)
 
 # --- Risk Flagging ---
-st.header("🚨 Risk Alert")
+st.header("Risk Alert")
 risk_msgs = []
 for i in range(4):
     if expected[i] > conf.iloc[i, 1]:
@@ -136,7 +136,7 @@ fig.update_layout(title="Forecasted vs Expected Revenue", xaxis_title="Quarter",
 st.plotly_chart(fig)
 
 # --- AI Summary (Static Placeholder) ---
-st.header(":robot_face: AI Summary")
+st.header("AI-Generated Summary")
 st.markdown("""
 **Summary**: The ARIMAX forecast, incorporating marketing spend and CPI data, projects revenue patterns that diverge from Starbucks' historical trends. This inconsistency may suggest potential overstatement in expected revenues or unusual operational behavior. Notably, marketing expenditures increase sharply in late 2022 and 2023 while revenue growth remains flat—indicating that sales boosts may be driven more by promotional efforts than organic performance. Given this pattern, further investigation is recommended to assess possible misstatements.
 """)
