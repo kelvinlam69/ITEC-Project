@@ -61,7 +61,7 @@ st.header("Historical Revenue, Forecast, and Expected Values")
 df = pd.read_csv("starbucks_financials_expanded.csv", parse_dates=['date'])
 df.set_index("date", inplace=True)
 full_df = df.dropna(subset=["CPI"])
-exog = full_df[["CPI", "marketing_spend"]]
+exog = full_df[["CPI"]]
 model_full = ARIMA(full_df["revenue"], order=(1, 1, 1), exog=exog)
 results_full = model_full.fit()
 
