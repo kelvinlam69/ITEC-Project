@@ -79,10 +79,10 @@ fig_full = go.Figure()
 fig_full.add_trace(go.Scatter(x=full_df.index, y=full_df["revenue"], name="Historical Revenue", mode="lines"))
 fig_full.add_trace(go.Scatter(x=future_index, y=forecast_values, name="Forecast", mode="lines+markers"))
 fig_full.add_trace(go.Scatter(x=future_index, y=expected, name="Expected (User Input)", mode="lines+markers"))
-# Add shaded confidence interval
+# Add shaded 95% confidence interval
 fig_full.add_trace(go.Scatter(
-    x=pd.concat([future_index, future_index[::-1]]),
-    y=pd.concat([conf_int.iloc[:, 0], conf_int.iloc[:, 1][::-1]]),
+    x=pd.Series(future_index).append(pd.Series(future_index[::-1]), ignore_index=True),
+    y=pd.Series(conf_int.iloc[:, 0]).append(pd.Series(conf_int.iloc[:, 1][::-1]), ignore_index=True),
     fill='toself',
     fillcolor='rgba(160,160,160,0.3)',
     line=dict(color='rgba(255,255,255,0)'),
