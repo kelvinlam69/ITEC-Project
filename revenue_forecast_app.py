@@ -72,6 +72,7 @@ forecast_full = results_full.get_forecast(steps=4, exog=future_exog)
 forecast_values = forecast_full.predicted_mean
 conf_int = forecast_full.conf_int()
 future_index = pd.date_range(start=full_df.index[-1] + pd.offsets.QuarterEnd(), periods=4, freq="Q")
+expected = forecast_values.tolist()
 
 # Plot
 fig_full = go.Figure()
