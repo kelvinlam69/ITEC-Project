@@ -124,7 +124,7 @@ else:
     st.success("Expected revenue is within forecasted range.")
 
 # --- Visualization ---
-st.header(":chart_with_upwards_trend: Forecast vs Expected")
+st.header("Forecast vs Expected")
 future_dates = pd.date_range(start=df.index[-1] + pd.offsets.QuarterEnd(), periods=4, freq='Q')
 
 fig = go.Figure()
