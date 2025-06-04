@@ -79,8 +79,17 @@ fig_full = go.Figure()
 fig_full.add_trace(go.Scatter(x=full_df.index, y=full_df["revenue"], name="Historical Revenue", mode="lines"))
 fig_full.add_trace(go.Scatter(x=future_index, y=forecast_values, name="Forecast", mode="lines+markers"))
 fig_full.add_trace(go.Scatter(x=future_index, y=expected, name="Expected (User Input)", mode="lines+markers"))
-fig_full.add_trace(go.Scatter(x=future_index, y=conf_int.iloc[:, 0], name="Lower CI", line=dict(dash="dot")))
-fig_full.add_trace(go.Scatter(x=future_index, y=conf_int.iloc[:, 1], name="Upper CI", line=dict(dash="dot")))
+# Add shaded confidence interval
+fig_full.add_trace(go.Scatter(
+    x=pd.concat([future_index, future_index[::-1]]),
+    y=pd.concat([conf_int.iloc[:, 0], conf_int.iloc[:, 1][::-1]]),
+    fill='toself',
+    fillcolor='rgba(160,160,160,0.3)',
+    line=dict(color='rgba(255,255,255,0)'),
+    hoverinfo="skip",
+    showlegend=True,
+    name="95% Confidence Interval"
+))
 
 fig_full.update_layout(
     title="Starbucks Quarterly Revenue Forecast with User Expectations",
